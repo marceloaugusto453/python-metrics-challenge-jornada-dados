@@ -1,0 +1,8 @@
+id,nome,area,salario,bonus_percentual,bonus_final
+1,Ana Souza,Vendas,4500,0.1,1450.0
+2,Bruno Lima,TI,7000,0.05,1350.0
+3,Carla Mota,Financeiro,0,0.2,1000.0
+6,Elisa Prado,Financeiro,6100,-0.05,695.0
+7,Fernando Dias,Vendas,4800,0.07,1336.0
+9,Maria Alves,TI,6100,0.12,1732.0
+10,Pedro Santos,Operações,5100,0.08,1408.0

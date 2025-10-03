@@ -1,0 +1,29 @@
+{
+    "quantidade_funcionarios_por_area": {
+        "Financeiro": 2,
+        "Operações": 1,
+        "TI": 2,
+        "Vendas": 2
+    },
+    "media_salario_por_area": {
+        "Financeiro": 3050.0,
+        "Operações": 5100.0,
+        "TI": 6550.0,
+        "Vendas": 4650.0
+    },
+    "bonus_total_geral": 8971.0,
+    "top3_bonus": [
+        {
+            "nome": "Maria Alves",
+            "bonus_final": 1732.0
+        },
+        {
+            "nome": "Ana Souza",
+            "bonus_final": 1450.0
+        },
+        {
+            "nome": "Pedro Santos",
+            "bonus_final": 1408.0
+        }
+    ]
+}
