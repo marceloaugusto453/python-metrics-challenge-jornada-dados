@@ -1,4 +1,4 @@
-# 🚀 Data Journey Challenge – Technical Test
+# 🚀 Acelerador - Jornada de Dados – Technical Test
 
 This project was developed as part of a **technical assessment** for a **Data/Analytics Engineer** position.  
 The goal is to **ingest, validate, transform, and generate reports** from an employee dataset.
