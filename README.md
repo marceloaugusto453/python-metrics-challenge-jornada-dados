@@ -1,7 +1,7 @@
-# 🚀 Acelerador - Jornada de Dados – Technical Test
+# Acelerador - Jornada de Dados – Technical Test
 
-This project was developed as part of a **technical assessment** for a **Data/Analytics Engineer** position.  
-The goal is to **ingest, validate, transform, and generate reports** from an employee dataset.
+The goal of this project is to implement a Data Engineering pipeline that ingests employee data, applies rigorous validation (Schema Validation), and generates analytical reports and performance metrics (KPIs).
+
 
 ---
 
@@ -11,6 +11,8 @@ The goal is to **ingest, validate, transform, and generate reports** from an emp
 .
 ├── data/
 │ └── funcionarios.csv
+├── logs/
+│ └── etl_{date}_{hour}.log
 ├── output/
 │ ├── erros.csv 
 │ ├── relatorio_individual.csv
@@ -25,44 +27,73 @@ The goal is to **ingest, validate, transform, and generate reports** from an emp
 └── README.md 
 ```
 
+## Objective and Pipeline Flow
 
-## 🎯 Objective
+The pipeline starts by reading `funcionarios.csv` and follows these steps:
 
-Starting from the file `funcionarios.csv`, the pipeline must:
 
-1. **Validate data:**
-   - Name cannot be empty or contain numbers.  
-   - Area must be one of: `Vendas`, `TI`, `Financeiro`, `RH`, `Operações`.  
-   - Salary must be ≥ 0.  
-   - Bonus percentage must be between 0 and 1.
+### 1. ⚙️ Transformação & Validação (T)
 
-2. **Calculate the final bonus:**
-   ```python
-   BONUS_BASE = 1000
-   bonus_final = BONUS_BASE + salario * bonus_percentual
+Data is validated row-by-row using Pandera before any calculations occur.
 
-3. **Generate reports:**
 
-   - relatorio_individual.csv → valid records + bonus_final.
+| Field | Validation Rule |
+| :--- | :--- |
+| **name** | Cannot be empty or contain numbers. |
+| **area** | Must be one of: Vendas, TI, Financeiro, RH, Operações. |
+| **salary** | Must be a number greater than or equal to 0. |
+| **percentual_bonus** | Must be a number between 0 and 1 (inclusive). |
 
-   - erros.csv → invalid records.
+**Bonus Calculation:** The `bonus_final` is calculated only for records that pass validation:
 
-   - kpis.json → aggregated indicators:
+$$
+\text{bonus\_final} = 1000 + \text{salario} \times \text{bonus\_percentual}
+$$
 
-   - Number of employees per area
+### 2. Reports and KPIs (L)
 
-   - Average salary per area
+| Arquivo de Saída | Conteúdo | Logs de Êxito |
+| :--- | :--- | :--- |
+| **relatorio_individual.csv** | All valid records, including the calculated bonus_final. | Yes (path and lines written) |
+| **erros.csv** | 	All records that failed validation, with the reason for the error appended. | Yes (path and lines written) |
+| **kpis.json** | Aggregated metrics, including: Count by Area, Average Salary by Area, Total Bonus Sum, and Top 3 employees with the highest bonus. | Yes (Top 3 summary and file path) |
 
-   - Total bonus sum
+---
 
-   - Top 3 employees with highest bonus*
+## Observability: Structured Logging with loguru
 
-##  🧰 Tech Stack
+The pipeline uses the **`loguru`** library to ensure traceability and simplify debugging.
 
-   -  Python 3.10+
+* **Centralized Configuration:**  `main.py` configures logs for the console and a dedicated file (`logs/etl_{date}_{time}.log`).
 
-   -  Pandas
+* **Real-Time Metrics:** Logs record crucial metrics at each stage:
+    * **Extract:**  Count of lines read.
+    * **Transform:**  Proportion of valid vs. invalid records and the Top 3 reasons for errors.
+    * **Load:**  Files generated, paths, and lines written per report.
 
-   -  Pandera — for schema validation
 
-   -  JSON — for KPI export
+---
+
+## 🧰 Tech Stack & Requisitos
+
+| Technology | Purpose |
+| :--- | :--- |
+| **Python 3.10+** | Primary development language. |
+| **Pandas** | DataFrame manipulation and data aggregation. |
+| **Pandera** | Rigorous Schema Validation and error collection |
+| **Loguru** | Structured logging, observability, and metric recording. |
+| **JSON** | Exporting the final KPI file. |
+
+### Instalação e Execução (Usando Poetry)
+
+1.  Clone the repository.
+
+
+2.  Install dependencies:
+    ```bash
+    poetry install
+    ```
+3.  Execute the pipeline:
+    ```bash
+    poetry run python main.py
+    ```
