@@ -44,11 +44,7 @@ Data is validated row-by-row using Pandera before any calculations occur.
 | **salary** | Must be a number greater than or equal to 0. |
 | **percentual_bonus** | Must be a number between 0 and 1 (inclusive). |
 
-**Bonus Calculation:** The `bonus_final` is calculated only for records that pass validation:
-
-$$
-\text{bonus\_final} = 1000 + \text{salario} \times \text{bonus\_percentual}
-$$
+**Bonus Calculation:** The `bonus_final` is calculated only for records that pass validation: bonus_final = 1000 + salario *  bonus_percentual
 
 ### 2. Reports and KPIs (L)
 
