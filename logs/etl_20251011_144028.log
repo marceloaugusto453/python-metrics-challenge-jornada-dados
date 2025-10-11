@@ -1,0 +1,12 @@
+2025-10-11 14:40:28.974 | INFO     | __main__:setup_logging:26 - Configuração de log realizada com sucesso.
+2025-10-11 14:40:28.974 | INFO     | __main__:<module>:31 - Pipeline ETL do funcionário iniciada
+2025-10-11 14:40:28.975 | INFO     | src.reader:carregar_csv:13 - Iniciando extração: lendo arquivo CSV em: data/funcionarios.csv
+2025-10-11 14:40:28.981 | SUCCESS  | src.reader:carregar_csv:21 - Extração realizada: arquivo data/funcionarios.csv lido com sucesso.
+2025-10-11 14:40:28.981 | INFO     | src.reader:carregar_csv:22 - Metrica | Total de linhas lidas: 10
+2025-10-11 14:40:28.982 | INFO     | src.schema:validar_e_separar:46 - Iniciando transformação: validação de Schema (Pandera).
+2025-10-11 14:40:29.045 | INFO     | src.schema:validar_e_separar:80 - Validação concluída: 7 válidos | 3 inválidos.
+2025-10-11 14:40:29.046 | INFO     | src.schema:validar_e_separar:82 - Top 3 motivos de erro: {'Campos nulos.': 2, 'Nome contém números ou caracteres inválidos.': 1}
+2025-10-11 14:40:29.051 | INFO     | src.kpis:gerar_kpis:22 - Iniciar geração de KPIs: calculo de metricas agregadas.
+2025-10-11 14:40:29.055 | INFO     | src.kpis:gerar_kpis:35 - Métrica Principal: Top 3 Bônus Calculados: [{'nome': 'Maria Alves', 'bonus_final': 1732.0}, {'nome': 'Ana Souza', 'bonus_final': 1450.0}, {'nome': 'Pedro Santos', 'bonus_final': 1408.0}]
+2025-10-11 14:40:29.057 | SUCCESS  | src.kpis:gerar_kpis:50 - Geração do arquivo finalizada: arquivo salvo em output/kpis.json
+2025-10-11 14:40:29.057 | INFO     | __main__:<module>:44 - Pipeline ETL finalizada com sucesso
