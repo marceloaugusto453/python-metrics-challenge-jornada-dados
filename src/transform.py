@@ -1,12 +1,20 @@
+# src/writer.py (Melhorado)
+
 import pandas as pd
-
-BONUS_BASE = 1000
-
-def calcular_bonus(df_validos: pd.DataFrame) -> pd.DataFrame:
-    df_validos = df_validos.copy()
-    df_validos["bonus_final"] = BONUS_BASE + df_validos["salario"] * df_validos["bonus_percentual"]
-    df_validos["bonus_final"] = df_validos["bonus_final"].round(2)
-    return df_validos
+from loguru import logger
 
 def gerar_relatorio_individual(df_validos: pd.DataFrame, path_saida: str = "output/relatorio_individual.csv"):
-    df_validos.to_csv(path_saida, index=False)
+    """
+    Salva os registros válidos com o bônus calculado.
+    
+    """
+    logger.info(f"Iniciando load: Salvando relatório individual em {path_saida}")
+    
+    try:
+        df_validos.to_csv(path_saida, index=False)
+        
+        linhas_gravadas = len(df_validos)
+        logger.success(f"Load concluído: relatório individual gerado em '{path_saida}' com {linhas_gravadas} linhas.")
+    
+    except Exception as e:
+        logger.error(f"Erro ao gerar o relatorio_individual.csv {path_saida}: {e}")
